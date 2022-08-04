@@ -3,15 +3,13 @@
 package restapi
 
 import (
+	"LEARN_API_SPEC_SWAGGER/api/handler"
 	"crypto/tls"
 	"net/http"
 
+	"LEARN_API_SPEC_SWAGGER/api/restapi/operations"
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
-
-	"LEARN_API_SPEC_SWAGGER/api/restapi/operations"
-	"LEARN_API_SPEC_SWAGGER/api/restapi/operations/blog"
 )
 
 //go:generate swagger generate server --target ../../api --name BlogAPI --spec ../../swagger.yaml --principal interface{}
@@ -38,15 +36,13 @@ func configureAPI(api *operations.BlogAPIAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
+	blogHandler := handler.Blog{}
+
 	if api.BlogBlogCreateHandler == nil {
-		api.BlogBlogCreateHandler = blog.BlogCreateHandlerFunc(func(params blog.BlogCreateParams) middleware.Responder {
-			return middleware.NotImplemented("operation blog.BlogCreate has not yet been implemented")
-		})
+		api.BlogBlogCreateHandler = blogHandler.BlogCreateHandler()
 	}
 	if api.BlogBlogGetHandler == nil {
-		api.BlogBlogGetHandler = blog.BlogGetHandlerFunc(func(params blog.BlogGetParams) middleware.Responder {
-			return middleware.NotImplemented("operation blog.BlogGet has not yet been implemented")
-		})
+		api.BlogBlogGetHandler = blogHandler.BlogGetHandler()
 	}
 
 	api.PreServerShutdown = func() {}
