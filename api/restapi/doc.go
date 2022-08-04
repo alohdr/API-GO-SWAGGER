@@ -5,7 +5,6 @@
 //  The Blog Service API defines an HTTP(S) interface.
 //  Schemes:
 //    http
-//    https
 //  Host: localhost:8080
 //  BasePath: /
 //  Version: master

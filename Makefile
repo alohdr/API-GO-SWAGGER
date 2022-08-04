@@ -4,4 +4,6 @@ validate:
 	swagger validate ./api/swagger.yaml
 
 build:
-	swagger generate server -f ./api/swagger.yaml -A blog-api
+	swagger generate server -f ./swagger.yaml -A blog-api -t ./api
+
+

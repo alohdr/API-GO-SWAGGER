@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"LEARN_API_SPEC_SWAGGER/models"
+	"LEARN_API_SPEC_SWAGGER/api/models"
 )
 
 // BlogGetOKCode is the HTTP code returned for type BlogGetOK

@@ -10,11 +10,11 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"LEARN_API_SPEC_SWAGGER/restapi/operations"
-	"LEARN_API_SPEC_SWAGGER/restapi/operations/blog"
+	"LEARN_API_SPEC_SWAGGER/api/restapi/operations"
+	"LEARN_API_SPEC_SWAGGER/api/restapi/operations/blog"
 )
 
-//go:generate swagger generate server --target ../../LEARN API SPEC SWAGGER --name BlogAPI --spec ../api/swagger.yaml --principal interface{}
+//go:generate swagger generate server --target ../../api --name BlogAPI --spec ../../swagger.yaml --principal interface{}
 
 func configureFlags(api *operations.BlogAPIAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }

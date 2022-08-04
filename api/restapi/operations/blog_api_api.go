@@ -19,7 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"LEARN_API_SPEC_SWAGGER/restapi/operations/blog"
+	"LEARN_API_SPEC_SWAGGER/api/restapi/operations/blog"
 )
 
 // NewBlogAPIAPI creates a new BlogAPI instance

@@ -13,7 +13,6 @@ info:
 host: localhost:8080
 schemes:
   - http
-  - https
 
 consumes:
   - application/json

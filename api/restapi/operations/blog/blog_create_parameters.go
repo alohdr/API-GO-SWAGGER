@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/validate"
 
-	"LEARN_API_SPEC_SWAGGER/models"
+	"LEARN_API_SPEC_SWAGGER/api/models"
 )
 
 // NewBlogCreateParams creates a new BlogCreateParams object
