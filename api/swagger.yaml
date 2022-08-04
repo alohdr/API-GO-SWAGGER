@@ -1,0 +1,195 @@
+swagger: '2.0'
+
+info:
+  title: Blog Service API
+  description: >-
+    The Blog Service API defines an HTTP(S) interface.
+  contact:
+    name: Blog Service API
+    url: 'https://www.melektekno.com/'
+    email: hendros@gmail.com
+  version: master
+
+host: localhost:8080
+schemes:
+  - http
+  - https
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /api/v1/blog/{blog_id}:
+    parameters:
+      - $ref: '#/parameters/BlogID'
+    get:
+      summary: get the blog of service
+      tags:
+        - Blog
+      operationId: blog.get
+      responses:
+        '200':
+          description: blog response
+          schema:
+            $ref: '#/definitions/Blogs'
+        '401':
+          $ref: '#/responses/ErrorUnauthorized'
+        '412':
+          $ref: '#/responses/ErrorPreconditionFailed'
+        default:
+          $ref: '#/responses/ErrorUnexpected'
+  /api/v1/blog/create:
+    parameters:
+      - name: body
+        in: body
+        description: create blog payload
+        required: true
+        schema:
+          $ref: '#/definitions/CreateBlogRequest'
+    post:
+      summary: create a new blog
+      tags:
+        - Blog
+      operationId: blog.create
+      responses:
+        '201':
+          description: Blog Created
+          schema:
+            $ref: '#/definitions/CreateBlogResponse'
+        '400':
+          $ref: '#/responses/ErrorBadRequest'
+        '401':
+          $ref: '#/responses/ErrorUnauthorized'
+        '412':
+          $ref: '#/responses/ErrorPreconditionFailed'
+        default:
+          $ref: '#/responses/ErrorUnexpected'
+parameters:
+  BlogID:
+    name: blog_id
+    in: path
+    description: blog identifier
+    required: true
+    type: string
+  APIVersion:
+    name: X-Broker-API-Version
+    in: header
+    description: version number of the Service Broker API that the Platform will use
+    required: true
+    type: string
+  OriginatingIdentity:
+    name: X-Broker-API-Originating-Identity
+    in: header
+    description: identity of the user that initiated the request from the Platform
+    type: string
+  RequestIdentity:
+    name: X-Broker-API-Request-Identity
+    in: header
+    description: idenity of the request from the Platform
+    type: string
+  accepts_incomplete:
+    name: accepts_incomplete
+    in: query
+    description: asynchronous operations supported
+    type: boolean
+  service_id:
+    name: service_id
+    in: query
+    description: id of the service associated with the instance being deleted
+    required: true
+    type: string
+  plan_id:
+    name: plan_id
+    in: query
+    description: id of the plan associated with the instance being deleted
+    required: true
+    type: string
+
+responses:
+  ErrorBadRequest:
+    description: Bad Request
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorUnauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorNotFound:
+    description: Not Found
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorConflict:
+    description: Conflict
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorGone:
+    description: Gone
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorPreconditionFailed:
+    description: Precondition Failed
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorUnprocessableEntity:
+    description: Unprocessable Entity
+    schema:
+      $ref: '#/definitions/Error'
+  ErrorUnexpected:
+    description: Unexpected
+    schema:
+      $ref: '#/definitions/Error'
+
+definitions:
+  CreateBlogRequest:
+    type: object
+    required:
+      - blog
+    properties:
+      blog:
+        $ref: '#/definitions/Blogs'
+  CreateBlogResponse:
+    type: object
+    required:
+      - id
+      - blog
+    properties:
+      id :
+        type: string
+      blog:
+        $ref: '#/definitions/Blogs'
+  Blogs:
+    type: object
+    required:
+      - title
+      - body
+    properties:
+      title:
+        type: string
+      body:
+        type: string
+      tags:
+        type: array
+        items:
+          $ref: '#/definitions/Tag'
+  Tag:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+      description:
+        type: string
+
+# securityDefinitions:
+#   basicAuth:
+#     type: basic
+# security:
+#   - basicAuth: []
